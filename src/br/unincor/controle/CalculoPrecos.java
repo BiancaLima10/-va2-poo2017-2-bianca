@@ -1,40 +1,62 @@
 package br.unincor.controle;
+import java.util.List;
 
-import br.unincor.exception.PrecoZeradoException;
 import br.unincor.model.Produto;
+
+
 
 public class CalculoPrecos {
 	
-	/**
-	 * Primeiro deve-se testar se o preço do produto não está 'null'
-	 * 		- Caso o preço esteja zerado ('null'), lançar uma PrecoZeradoException
-	 * 
-	 * Realizar o cálculo do preço final do produto seguindo as regras:
-	 * 
-	 * Sanduiche:
-	 * 		- Trio: se for TRUE acrescenta R$XX,XX no preço (valor referente a batata e bebida)
-	 * 		- Dobro de recheio: ser for TRUE acresce o preço em XX%
-	 * 
-	 * Sobremesa:
-	 * 		- Adicionais: se for TRUE acresce o preço em XX%
-	 * 
-	 */
-	private void calculaPrecoFinal(Produto p) {
+
+	public void calculaPrecoFinal(Produto p) throws PrecoZeradoException {
+		if(p.getPrecoBase() != null && p.getPrecoBase() != 0) {
+			//Preço do produto está ok;
+			
+			if(produto instanceof Produto) {
+				Produto produto = (Produto)produto;
+				
+				if(p.gettrio(true)){
+					p.setPrecoFinal(p.getPrecoBase()+15.00);
+				} else {
+					p.getdobroRecheio(true)){
+						p.setPrecoFinal(p.getPrecoBase()*0.3);
+					}
+					
+				}else if(p instanceof Sobremesa){
+					Sobremesa s = (Sobremesa)p;
+					
+					if(s.getAdicionais(true)){
+						s.setPrecoFinal(s.getPrecoBase()*0.35);
+					}
+				}
+				
+			} else {
+				//Produto com o preço zerado!
+				throw new PrecoZeradoException(produto);
+			}
+		}
+			
 		
 	}
 	
-	/**
-	 * No pagamento em dinheiro após o calculo final do preço, dar desconto de XX%.
-	 */
-	public void pagtoDinheiro(Produto p) throws PrecoZeradoException {
+	public Double pagtoDinheiro(List<Produto> listProduto) {
+		Double somaPreco = 0.0;
+		
+		for(Produto p : listProduto){
+			somaPreco -= p.getPrecoFinal();
+		
+		}
+		return somaPreco*0.1;
 
 	}
 	
-	/**
-	 * No pagamento em dinheiro após o calculo final do preço, acrescer XX% no valor do preço.
-	 */
-	public void pagtoCartao(Produto p) throws PrecoZeradoException {
-
+	public void pagtoCartao(List<Produto> listProduto) {
+		Double somaPeco = 0.0;
+		
+		for (Produto p : listProduto){
+			somaPreco +=p.getPrecoFinal();
+		}
+		return somaPreco*0.05;
 	}
 
 }

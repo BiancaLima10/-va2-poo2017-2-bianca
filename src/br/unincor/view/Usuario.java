@@ -5,12 +5,7 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-/**
- * Nesta classe você deve tratar exceção em todos os métodos que podem vir a
- * lançar exceções por entrada incorreta do usuário e remover os métodos não
- * utilizados.
- *
- */
+
 public class Usuario {
 
 	public void exibeMsg(String texto) {
@@ -59,15 +54,31 @@ public class Usuario {
 	}
 
 	public Long recebeLong(String texto) {
-		return Long.parseLong(JOptionPane.showInputDialog(texto));
+		try {
+			Long resposta = Long.parseLong(JOptionPane.showInputDialog(texto));
+		}catch (Exception e){
+			exibeMsgErro("Erro na entrada do usuario");
+		}
+		return null;
 	}
 
 	public Double recebeDouble(String texto) {
-		return Double.parseDouble(JOptionPane.showInputDialog(texto));
+		try {
+			Double.parseDouble(JOptionPane.showInputDialog(texto));
+		}catch (Exception e){
+			exibeMsgErro("Erro de entrada do usuario");
+		}
+		return null;
 	}
 
 	public Float recebeFloat(String texto) {
-		return Float.parseFloat(JOptionPane.showInputDialog(texto));
+		try {
+			Float.parseFloat(JOptionPane.showInputDialog(texto));
+		}catch (Exception e){
+			exibeMsgErro("Erro na entrada do usuario");
+		}
+		return null;
+		
 	}
 
 	public Boolean recebeBoolean(String texto) {
@@ -79,6 +90,11 @@ public class Usuario {
 	}
 
 	public String recebeTexto(String texto) {
-		return JOptionPane.showInputDialog(texto);
+		try {
+			JOptionPane.showInputDialog(texto);
+		}catch (Exception e){
+			exibeMsgErro("Erro na entrada do usuario");
+		}
+		return null;
 	}
 }
